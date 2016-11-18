@@ -10,9 +10,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
 
+import com.aadamsaleem.eatout.CustomViews.CustomListViewAdapter;
 import com.aadamsaleem.eatout.R;
+import com.aadamsaleem.eatout.models.Event;
+
+import java.util.ArrayList;
 
 public class FriendsFragment extends Fragment {
 
@@ -30,8 +34,32 @@ public class FriendsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
-        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-        textView.setText("Friends Section");
+
+        ListView yourListView = (ListView)rootView.findViewById(R.id.listView);
+
+
+        ArrayList<Event> items = new ArrayList<>();
+
+        Event ev1 = new Event();
+        Event ev2 = new Event();
+
+
+
+        ev1.setName("Dinner");
+        ev1.setVenue("Taj Mahal");
+        ev1.setDate("19/11/2016");
+        ev1.setTime("8:00PM");
+
+        ev2.setName("Breakfast");
+        ev2.setVenue("Shake Shack");
+        ev2.setDate("18/11/2016");
+        ev2.setTime("8:00AM");
+
+        items.add(ev1);
+        items.add(ev2);
+
+        CustomListViewAdapter listadapter = new CustomListViewAdapter(getActivity(), android.R.layout.simple_list_item_1, items);
+        yourListView.setAdapter( listadapter);
         return rootView;
     }
 }

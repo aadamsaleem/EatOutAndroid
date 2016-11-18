@@ -1,13 +1,18 @@
-package com.aadamsaleem.eatout;
+package com.aadamsaleem.eatout.LoggedOut;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.aadamsaleem.eatout.LoggedIn.MainActivity;
+import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.models.User;
 import com.aadamsaleem.eatout.util.PrefUtils;
 import com.facebook.CallbackManager;
@@ -24,6 +29,8 @@ import com.yqritc.scalablevideoview.ScalableVideoView;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class SplashScreen extends Activity {
     ScalableVideoView videoHolder;
@@ -89,6 +96,7 @@ public class SplashScreen extends Activity {
 
         super.onCreate(savedInstanceState);
 
+        printKeyHash();
         if(PrefUtils.getCurrentUser(SplashScreen.this) != null){
             Intent homeIntent = new Intent(SplashScreen.this, MainActivity.class);
             startActivity(homeIntent);
@@ -174,6 +182,22 @@ public class SplashScreen extends Activity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
 
+    }
+
+    private void printKeyHash() {
+        // Add code to print out the key hash
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("com.aadamsaleem.eatout", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("KeyHash:", e.toString());
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("KeyHash:", e.toString());
+        }
     }
     //endregion
 }

@@ -8,19 +8,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapRegionDecoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aadamsaleem.eatout.R;
-import com.aadamsaleem.eatout.SplashScreen;
+import com.aadamsaleem.eatout.LoggedOut.SplashScreen;
 import com.aadamsaleem.eatout.models.User;
 import com.aadamsaleem.eatout.util.PrefUtils;
 import com.facebook.login.LoginManager;
@@ -30,8 +28,6 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import static android.R.attr.bitmap;
 
 public class ProfileFragment extends Fragment {
     Context mContext;
