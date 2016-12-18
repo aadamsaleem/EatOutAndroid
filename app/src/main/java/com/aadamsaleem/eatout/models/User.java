@@ -10,6 +10,15 @@ public class User {
     private String email;
     private String facebookID;
     private String gender;
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getName() {
         return name;

@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.LoggedOut.SplashScreen;
+import com.aadamsaleem.eatout.client.UserManager;
 import com.aadamsaleem.eatout.models.User;
 import com.aadamsaleem.eatout.util.PrefUtils;
 import com.facebook.login.LoginManager;
@@ -119,8 +120,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void logout(){
-        PrefUtils.clearCurrentUser(getActivity());
-        LoginManager.getInstance().logOut();
+        UserManager.signOut(getActivity());
 
         Intent i= new Intent(getActivity(),SplashScreen.class);
         startActivity(i);
