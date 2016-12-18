@@ -13,14 +13,16 @@ import java.lang.reflect.Type;
  */
 public class ComplexPreferences {
 
+    //properties
     private static ComplexPreferences complexPreferences;
-    private Context context;
-    private SharedPreferences preferences;
-    private SharedPreferences.Editor editor;
     private static Gson GSON = new Gson();
     Type typeOfObject = new TypeToken<Object>() {
     }.getType();
+    private Context context;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
+    //region Constructor
     private ComplexPreferences(Context context, String namePreferences, int mode) {
         this.context = context;
         if (namePreferences == null || namePreferences.equals("")) {
@@ -29,9 +31,10 @@ public class ComplexPreferences {
         preferences = context.getSharedPreferences(namePreferences, mode);
         editor = preferences.edit();
     }
+    //endregion
 
-    public static ComplexPreferences getComplexPreferences(Context context,
-                                                           String namePreferences, int mode) {
+    //region Public Methods
+    public static ComplexPreferences getComplexPreferences(Context context, String namePreferences, int mode) {
 
 //		if (complexPreferences == null) {
         complexPreferences = new ComplexPreferences(context,
@@ -42,11 +45,11 @@ public class ComplexPreferences {
     }
 
     public void putObject(String key, Object object) {
-        if(object == null){
+        if (object == null) {
             throw new IllegalArgumentException("object is null");
         }
 
-        if(key.equals("") || key == null){
+        if (key.equals("") || key == null) {
             throw new IllegalArgumentException("key is empty or null");
         }
 
@@ -67,13 +70,14 @@ public class ComplexPreferences {
         if (gson == null) {
             return null;
         } else {
-            try{
+            try {
                 return GSON.fromJson(gson, a);
             } catch (Exception e) {
                 throw new IllegalArgumentException("Object storaged with key " + key + " is instanceof other class");
             }
         }
     }
+    //endregion
 
 
 }

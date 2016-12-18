@@ -31,6 +31,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class ProfileFragment extends Fragment {
+    //Properties
     Context mContext;
     RoundedImageView profilePicture;
     TextView nameTextView, emailTextView;
@@ -49,6 +50,7 @@ public class ProfileFragment extends Fragment {
         return fragment;
     }
 
+    //region Override Methods
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,8 +63,9 @@ public class ProfileFragment extends Fragment {
 
         return rootView;
     }
+    //endregion
 
-
+    //region Private Methods
     private void getViewIDs()
     {
         profilePicture = (RoundedImageView) rootView.findViewById(R.id.profile_picture);
@@ -126,4 +129,5 @@ public class ProfileFragment extends Fragment {
         startActivity(i);
         getActivity().finish();
     }
+    //endregion
 }

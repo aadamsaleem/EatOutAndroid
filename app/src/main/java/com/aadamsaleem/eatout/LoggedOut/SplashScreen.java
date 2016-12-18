@@ -17,14 +17,12 @@ import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.UserManager;
 import com.aadamsaleem.eatout.models.User;
 import com.aadamsaleem.eatout.util.PrefUtils;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.yqritc.scalablevideoview.ScalableType;
@@ -56,7 +54,6 @@ public class SplashScreen extends Activity {
                                 JSONObject object,
                                 GraphResponse response) {
 
-                            Log.e("response: ", response + "");
                             try {
                                 user = new User();
                                 user.setFacebookID(object.getString("id"));
@@ -64,11 +61,12 @@ public class SplashScreen extends Activity {
                                 user.setName(object.getString("name"));
                                 user.setGender(object.getString("gender"));
 
+
                                 UserManager.signup(user, getApplicationContext(), new CompletionInterface() {
                                     @Override
-                                    public void onSuccess(JSONObject reult) {
+                                    public void onSuccess(JSONObject result) {
                                         try {
-                                            String token = reult.getString("user_token");
+                                            String token = result.getString("user_token");
                                             user.setToken(token);
                                             PrefUtils.setCurrentUser(user, SplashScreen.this);
 
@@ -94,13 +92,10 @@ public class SplashScreen extends Activity {
                                     }
                                 });
 
-                                getFacebookFriendList(user.getFacebookID());
-
 
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-
 
                         }
 
@@ -210,20 +205,5 @@ public class SplashScreen extends Activity {
             Log.e("KeyHash:", e.toString());
         }
     }
-
-    private void getFacebookFriendList(String fbUserID) {
-        new GraphRequest(
-                AccessToken.getCurrentAccessToken(),
-                "/" + fbUserID + "/friendlists",
-                null,
-                HttpMethod.GET,
-                new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-
-                    }
-                }
-        ).executeAsync();
-    }
-
     //endregion
 }

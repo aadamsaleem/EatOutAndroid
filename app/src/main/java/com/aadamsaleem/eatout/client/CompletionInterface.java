@@ -8,5 +8,6 @@ import org.json.JSONObject;
 
 public interface CompletionInterface {
     void onSuccess(JSONObject result);
+
     void onFailure();
 }

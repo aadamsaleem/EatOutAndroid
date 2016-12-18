@@ -6,23 +6,40 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.util.ArraySet;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.aadamsaleem.eatout.R;
+import com.aadamsaleem.eatout.client.CompletionInterface;
+import com.aadamsaleem.eatout.client.UserManager;
+import com.aadamsaleem.eatout.models.User;
+import com.aadamsaleem.eatout.util.PrefUtils;
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    private User user;
 
-
+    //region Override Methods
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        user = PrefUtils.getCurrentUser(getApplicationContext());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -42,8 +59,46 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
 
+        getFacebookFriendList(user.getFacebookID());
+    }
+    //endregion
+
+    //region Private Methods
+    private void getFacebookFriendList(String fbUserID) {
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/" + fbUserID + "/friends",
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+
+                        JSONArray friendArray = null;
+                        try {
+                            friendArray = (response.getJSONObject().getJSONArray("data"));
+                            UserManager.updateFBFriendList(friendArray,getApplicationContext(), new CompletionInterface() {
+                                @Override
+                                public void onSuccess(JSONObject result) {
+                                    Log.e("result",result.toString());
+                                }
+
+                                @Override
+                                public void onFailure() {
+
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+        ).executeAsync();
+    }
+    //endregion
+
+    //region class SectionPageAdapter
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -83,4 +138,5 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
+    //endregion
 }

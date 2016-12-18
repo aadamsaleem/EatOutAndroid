@@ -10,6 +10,7 @@ import com.aadamsaleem.eatout.models.User;
 
 public class PrefUtils {
 
+    //region public methods
     public static void setCurrentUser(User currentUser, Context ctx){
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(ctx, "user_prefs", 0);
         complexPreferences.putObject("current_user_value", currentUser);
@@ -27,4 +28,5 @@ public class PrefUtils {
         complexPreferences.clearObject();
         complexPreferences.commit();
     }
+    //endregion
 }
