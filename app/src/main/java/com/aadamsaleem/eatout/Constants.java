@@ -12,4 +12,8 @@ public class Constants {
     public static final String URL_SIGN_UP = "user/test_login";
 
     public static String URL_FB_FRIEND_LIST_UPDATE = "user/update_friends";
+
+    public static String URL_CUISINES = "restaurant/get_cuisines";
+
+    public static String URL_UPDATE_PREFERENCES = "user/update_preference";
 }

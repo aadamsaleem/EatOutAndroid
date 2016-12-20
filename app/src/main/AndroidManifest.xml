@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoggedIn.MainActivity"
+            android:name=".LoggedIn.Home.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -62,6 +62,7 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoggedIn.Preferences.PreferencesActivity"></activity>
     </application>
 
 </manifest>

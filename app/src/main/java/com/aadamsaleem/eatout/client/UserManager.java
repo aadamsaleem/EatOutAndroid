@@ -132,6 +132,83 @@ public class UserManager {
         });
 
     }
+
+    public static void getCuisines(final  Context context, final CompletionInterface completionInterface){
+        String url = Constants.BASE_URL+ Constants.URL_CUISINES;
+        JSONObject json = new JSONObject();
+
+        try {
+            json.put("USER_TOKEN", PrefUtils.getCurrentUser(context).getToken());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        StringEntity se = null;
+        try {
+            se = new StringEntity(json.toString());
+        } catch (UnsupportedEncodingException e) {
+            // handle exceptions properly!
+        }
+        se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+        client.post(context, url, se, "application/json", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                    JSONObject resultJSON = null;
+                    try {
+                        resultJSON = new JSONObject(new String(responseBody));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    completionInterface.onSuccess(resultJSON);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                completionInterface.onFailure();
+            }
+        });
+    }
+
+    public static void updatePreferences(Context applicationContext, JSONObject jsonObject, final CompletionInterface completionInterface){
+        String url = Constants.BASE_URL+ Constants.URL_UPDATE_PREFERENCES;
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        StringEntity se = null;
+        try {
+            se = new StringEntity(jsonObject.toString());
+        } catch (UnsupportedEncodingException e) {
+            // handle exceptions properly!
+        }
+        se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+        client.post(applicationContext, url, se, "application/json", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                    JSONObject resultJSON = null;
+                    try {
+                        resultJSON = new JSONObject(new String(responseBody));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    completionInterface.onSuccess(resultJSON);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                completionInterface.onFailure();
+            }
+        });
+
+    }
     //endregion
 
 }

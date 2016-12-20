@@ -1,4 +1,4 @@
-package com.aadamsaleem.eatout.LoggedIn;
+package com.aadamsaleem.eatout.LoggedIn.Home;
 
 /**
  * Created by aadamsaleem on 11/16/16.
@@ -15,14 +15,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.aadamsaleem.eatout.LoggedIn.Preferences.PreferencesActivity;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.LoggedOut.SplashScreen;
 import com.aadamsaleem.eatout.client.UserManager;
 import com.aadamsaleem.eatout.models.User;
 import com.aadamsaleem.eatout.util.PrefUtils;
-import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -39,6 +40,7 @@ public class ProfileFragment extends Fragment {
     Bitmap bitmap;
     User user;
     LoginButton loginButton;
+    LinearLayout preferencesLayout;
 
     public ProfileFragment() {
     }
@@ -72,6 +74,7 @@ public class ProfileFragment extends Fragment {
         nameTextView = (TextView)rootView.findViewById(R.id.name);
         emailTextView = (TextView)rootView.findViewById(R.id.email);
         loginButton = (LoginButton) rootView.findViewById(R.id.login_button);
+        preferencesLayout  = (LinearLayout) rootView.findViewById(R.id.preferences_Layout);
 
     }
 
@@ -88,6 +91,15 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 logout();
+
+            }
+        });
+
+        preferencesLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(mContext, PreferencesActivity.class);
+                startActivity(i);
 
             }
         });

@@ -11,7 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.aadamsaleem.eatout.LoggedIn.MainActivity;
+import com.aadamsaleem.eatout.LoggedIn.Home.MainActivity;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.UserManager;

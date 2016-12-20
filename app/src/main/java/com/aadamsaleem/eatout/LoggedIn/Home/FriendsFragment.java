@@ -1,4 +1,4 @@
-package com.aadamsaleem.eatout.LoggedIn;
+package com.aadamsaleem.eatout.LoggedIn.Home;
 
 /**
  * Created by aadamsaleem on 11/16/16.
@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.aadamsaleem.eatout.CustomViews.CustomListViewAdapter;
+import com.aadamsaleem.eatout.CustomViews.CustomListView.CustomListViewAdapter;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.models.Event;
 

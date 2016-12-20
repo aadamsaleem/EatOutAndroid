@@ -1,4 +1,4 @@
-package com.aadamsaleem.eatout.CustomViews;
+package com.aadamsaleem.eatout.CustomViews.CustomListView;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -38,6 +38,24 @@
             android:layout_below="@id/name"
             android:layout_marginTop="20dp"
             android:text="email@address" />
+
+    
+    <LinearLayout
+        android:id="@+id/preferences_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/preferneces_icon"
+            android:layout_marginRight="15dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preferences"/>
+    </LinearLayout>
     </LinearLayout>
 
     <com.facebook.login.widget.LoginButton
