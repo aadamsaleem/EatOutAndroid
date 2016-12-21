@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -19,6 +20,11 @@ android {
     }
     useLibrary 'org.apache.http.legacy'
 }
+
+repositories {
+    mavenCentral()
+}
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -35,5 +41,6 @@ dependencies {
     compile 'com.makeramen:roundedimageview:2.2.1'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.zhy:flowlayout-lib:1.0.3'
+    compile "com.splitwise:tokenautocomplete:2.0.8@aar"
     testCompile 'junit:junit:4.12'
 }

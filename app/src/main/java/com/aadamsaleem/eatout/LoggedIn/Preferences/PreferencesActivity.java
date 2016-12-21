@@ -2,9 +2,7 @@ package com.aadamsaleem.eatout.LoggedIn.Preferences;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
@@ -27,10 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 public class PreferencesActivity extends AppCompatActivity {
@@ -68,7 +63,6 @@ public class PreferencesActivity extends AppCompatActivity {
     }
 
     public void setViews() {
-
 
 
         distanceSeekBar.setProgress(1);
@@ -119,11 +113,10 @@ public class PreferencesActivity extends AppCompatActivity {
                 }
 
                 if(!newUser){
-                    UserManager.getPrefernces(getApplicationContext(), new CompletionInterface() {
+                    UserManager.getPreferences(getApplicationContext(), new CompletionInterface() {
                         @Override
                         public void onSuccess(JSONObject result) {
                             try {
-                                Log.e("aaaa",""+result.toString());
                                 JSONObject preferences = result.getJSONObject("PREFERENCES");
                                 distance = preferences.getDouble("DISTANCE_RADIUS");
                                 distanceSeekBar.setProgress((int)(distance*10));
@@ -133,7 +126,6 @@ public class PreferencesActivity extends AppCompatActivity {
 
                                 Set<Integer> set = new HashSet<>();
                                 for(int i =0 ;i< cuisine.length();i++ ) {
-                                    Log.e("cuisine " + i, cuisine.getString(i));
                                     set.add(mVals.indexOf(cuisine.getString(i)));
                                 }
 
@@ -177,56 +169,7 @@ public class PreferencesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                JSONObject json = new JSONObject();
-
-                try {
-                    json.put("USER_TOKEN", PrefUtils.getCurrentUser(getApplicationContext()).getToken());
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                JSONArray cuisineArray = new JSONArray();
-                Set<Integer> selectedCuisines = mFlowLayout.getSelectedList();
-                for (Integer i : selectedCuisines) {
-                    cuisineArray.put(mVals.get(i));
-
-                }
-
-                JSONObject jsonPreferences = new JSONObject();
-                try {
-                    jsonPreferences.put("LIST_OF_PRIMARY_CUISINES", cuisineArray);
-
-                    switch (priceGroup.getCheckedRadioButtonId()) {
-                        case R.id.oneDollar:
-                            jsonPreferences.put("PRICE_RANGE", 1);
-                            break;
-                        case R.id.twoDollar:
-                            jsonPreferences.put("PRICE_RANGE", 2);
-                            break;
-                        case R.id.threeDollar:
-                            jsonPreferences.put("PRICE_RANGE", 3);
-                            break;
-                        case R.id.fourDollar:
-                            jsonPreferences.put("PRICE_RANGE", 4);
-                            break;
-                    }
-
-                    jsonPreferences.put("MINIMUM_RATING", (int) ratingbar.getRating());
-
-                    jsonPreferences.put("DISTANCE_RADIUS", distance.toString());
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    json.put("PREFERENCES", jsonPreferences);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                UserManager.updatePreferences(getApplicationContext(), json, new CompletionInterface() {
+                UserManager.updatePreferences(getApplicationContext(), prepareUpdateJson(), new CompletionInterface() {
                     @Override
                     public void onSuccess(JSONObject result) {
                         if(newUser){
@@ -247,5 +190,57 @@ public class PreferencesActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public JSONObject prepareUpdateJson(){
+        JSONObject json = new JSONObject();
+
+        try {
+            json.put("USER_TOKEN", PrefUtils.getCurrentUser(getApplicationContext()).getToken());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONArray cuisineArray = new JSONArray();
+        Set<Integer> selectedCuisines = mFlowLayout.getSelectedList();
+        for (Integer i : selectedCuisines) {
+            cuisineArray.put(mVals.get(i));
+
+        }
+
+        JSONObject jsonPreferences = new JSONObject();
+        try {
+            jsonPreferences.put("LIST_OF_PRIMARY_CUISINES", cuisineArray);
+
+            switch (priceGroup.getCheckedRadioButtonId()) {
+                case R.id.oneDollar:
+                    jsonPreferences.put("PRICE_RANGE", 1);
+                    break;
+                case R.id.twoDollar:
+                    jsonPreferences.put("PRICE_RANGE", 2);
+                    break;
+                case R.id.threeDollar:
+                    jsonPreferences.put("PRICE_RANGE", 3);
+                    break;
+                case R.id.fourDollar:
+                    jsonPreferences.put("PRICE_RANGE", 4);
+                    break;
+            }
+
+            jsonPreferences.put("MINIMUM_RATING", (int) ratingbar.getRating());
+
+            jsonPreferences.put("DISTANCE_RADIUS", distance.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            json.put("PREFERENCES", jsonPreferences);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 }

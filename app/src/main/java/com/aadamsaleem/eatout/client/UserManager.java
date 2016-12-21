@@ -211,8 +211,50 @@ public class UserManager {
 
     }
 
-    public static void getPrefernces(Context context, final CompletionInterface completionInterface){
+    public static void getPreferences(Context context, final CompletionInterface completionInterface){
         String url = Constants.BASE_URL+ Constants.URL_GET_PREFERENCES;
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("USER_TOKEN", PrefUtils.getCurrentUser(context).getToken());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        StringEntity se = null;
+        try {
+            se = new StringEntity(jsonObject.toString());
+        } catch (UnsupportedEncodingException e) {
+            // handle exceptions properly!
+        }
+        se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+        client.post(context, url, se, "application/json", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                    JSONObject resultJSON = null;
+                    try {
+                        resultJSON = new JSONObject(new String(responseBody));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    completionInterface.onSuccess(resultJSON);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                completionInterface.onFailure();
+            }
+        });
+
+    }
+
+    public static void getUserFriends(Context context, final CompletionInterface completionInterface){
+        String url = Constants.BASE_URL+ Constants.URL_GET_FRIENDS;
 
         JSONObject jsonObject = new JSONObject();
         try {

@@ -1,5 +1,6 @@
 package com.aadamsaleem.eatout.LoggedIn.Home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import com.aadamsaleem.eatout.LoggedIn.CreateEvent.CreateEventActivity;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.UserManager;
@@ -54,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // TODO: 11/16/16  create outing
+                Intent i = new Intent(MainActivity.this, CreateEventActivity.class);
+                startActivity(i);
             }
         });
 

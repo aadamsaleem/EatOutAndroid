@@ -62,7 +62,9 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoggedIn.Preferences.PreferencesActivity"></activity>
+        <activity android:name=".LoggedIn.Preferences.PreferencesActivity" />
+        <activity android:name=".LoggedIn.CreateEvent.CreateEventActivity" />
+        <activity android:name=".LoggedIn.ResturantPickerActivity"></activity>
     </application>
 
 </manifest>
