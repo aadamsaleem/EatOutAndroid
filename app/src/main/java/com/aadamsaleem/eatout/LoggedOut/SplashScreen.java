@@ -1,6 +1,7 @@
 package com.aadamsaleem.eatout.LoggedOut;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.aadamsaleem.eatout.LoggedIn.Home.MainActivity;
+import com.aadamsaleem.eatout.LoggedIn.Preferences.PreferencesActivity;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.UserManager;
@@ -52,7 +54,7 @@ public class SplashScreen extends Activity {
                         @Override
                         public void onCompleted(
                                 JSONObject object,
-                                GraphResponse response) {
+                                final GraphResponse response) {
 
                             try {
                                 user = new User();
@@ -62,11 +64,20 @@ public class SplashScreen extends Activity {
                                 user.setGender(object.getString("gender"));
 
 
+                                final ProgressDialog progressDialog = new ProgressDialog(SplashScreen.this, R.style.MyTheme);
+                                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                progressDialog.setCancelable(false);
+                                progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
+                                progressDialog.show();
+
                                 UserManager.signup(user, getApplicationContext(), new CompletionInterface() {
                                     @Override
                                     public void onSuccess(JSONObject result) {
+
+                                        String status = null;
                                         try {
                                             String token = result.getString("user_token");
+                                            status = result.getString("status");
                                             user.setToken(token);
                                             PrefUtils.setCurrentUser(user, SplashScreen.this);
 
@@ -74,8 +85,18 @@ public class SplashScreen extends Activity {
                                             e.printStackTrace();
                                         }
                                         Toast.makeText(SplashScreen.this, "Welcome " + user.getName(), Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(SplashScreen.this, MainActivity.class);
-                                        startActivity(intent);
+                                        if(status.equals("101"))
+                                        {
+                                            Intent intent = new Intent(SplashScreen.this, PreferencesActivity.class);
+                                            intent.putExtra("newUser", true);
+                                            startActivity(intent);
+                                        }
+                                        else{
+                                            Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                                            startActivity(intent);
+                                        }
+
+                                        progressDialog.dismiss();
                                         finish();
 
                                     }
@@ -83,6 +104,7 @@ public class SplashScreen extends Activity {
                                     @Override
                                     public void onFailure() {
                                         Toast.makeText(SplashScreen.this, "Something went wrong!", Toast.LENGTH_LONG).show();
+                                        progressDialog.dismiss();
                                         try {
                                             UserManager.signOut(SplashScreen.this);
                                         } catch (Exception e) {

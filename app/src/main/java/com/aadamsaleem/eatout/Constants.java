@@ -16,4 +16,7 @@ public class Constants {
     public static String URL_CUISINES = "restaurant/get_cuisines";
 
     public static String URL_UPDATE_PREFERENCES = "user/update_preference";
+
+    public static String URL_GET_PREFERENCES = "user/get_preference";
+
 }
