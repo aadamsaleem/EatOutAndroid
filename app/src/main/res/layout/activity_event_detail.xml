@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.aadamsaleem.eatout.EventDetailActivity">
+    tools:context="com.aadamsaleem.eatout.LoggedIn.Event.EventDetailActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -154,6 +154,28 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TOP RESTAURANT"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/resturant_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="LOCATION"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"/>
+
+
 
             <Button
                 android:id="@+id/vote_button"
@@ -165,6 +187,18 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/rounded_rectangle_blue"
                 android:text="Vote for Resturant"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/event_close_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_rectangle_blue"
+                android:text="mark event as closed"
                 android:textColor="@android:color/white" />
 
 

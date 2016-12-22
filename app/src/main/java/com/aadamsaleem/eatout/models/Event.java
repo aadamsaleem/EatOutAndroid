@@ -5,18 +5,17 @@ package com.aadamsaleem.eatout.models;
  */
 
 public class Event {
-    private int eventID;
+    private String eventID;
     private String name;
-    private String date;
-    private String time;
-    private String venue;
-    private Friend[] participants;
+    private String dateTime;
+    private String location;
+    private String participants;
 
-    public int getEventID() {
+    public String getEventID() {
         return eventID;
     }
 
-    public void setEventID(int eventID) {
+    public void setEventID(String eventID) {
         this.eventID = eventID;
     }
 
@@ -28,35 +27,27 @@ public class Event {
         this.name = name;
     }
 
-    public String getDate() {
-        return date;
+    public String getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDate(String dateTime) {
+        this.dateTime = dateTime;
     }
 
-    public String getTime() {
-        return time;
+    public String getLocation() {
+        return location;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public String getVenue() {
-        return venue;
-    }
-
-    public void setVenue(String venue) {
-        this.venue = venue;
-    }
-
-    public Friend[] getParticipants() {
+    public String getParticipants() {
         return participants;
     }
 
-    public void setParticipants(Friend[] participants) {
+    public void setParticipants(String participants) {
         this.participants = participants;
     }
 }

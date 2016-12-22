@@ -12,24 +12,21 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.aadamsaleem.eatout.EventDetailActivity;
+import com.aadamsaleem.eatout.LoggedIn.Event.EventDetailActivity;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.EventManager;
-import com.aadamsaleem.eatout.util.PrefUtils;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -220,18 +217,6 @@ public class NearbyFragment extends Fragment implements OnMapReadyCallback, Loca
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        EventManager.getEventDetails(getContext(), json, new CompletionInterface() {
-            @Override
-            public void onSuccess(JSONObject result) {
-                Log.e("aaaa",""+result.toString());
-            }
-
-            @Override
-            public void onFailure() {
-
-            }
-        });
 
         return false;
     }

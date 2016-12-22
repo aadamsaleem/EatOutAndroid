@@ -1,10 +1,9 @@
-package com.aadamsaleem.eatout.LoggedIn.CreateEvent;
+package com.aadamsaleem.eatout.LoggedIn.Event;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,7 +17,7 @@ import android.widget.Toast;
 
 import com.aadamsaleem.eatout.CustomViews.CustomEditText.CustomEditText;
 import com.aadamsaleem.eatout.CustomViews.CustomEditText.CustomFriendEditText;
-import com.aadamsaleem.eatout.LoggedIn.ResturantPickerActivity;
+import com.aadamsaleem.eatout.LoggedIn.Voting.RecommendationVoting;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.EventManager;
@@ -87,10 +86,14 @@ public class CreateEventActivity extends AppCompatActivity {
                 EventManager.createEvent(getApplicationContext(), prepareEventJson(), new CompletionInterface() {
                     @Override
                     public void onSuccess(JSONObject result) {
-                        Log.e("aaaa", result.toString());
-                        Intent i = new Intent(CreateEventActivity.this, ResturantPickerActivity.class);
-                        i.putExtra("RESULT", result.toString());
+                        Intent i = new Intent(CreateEventActivity.this, RecommendationVoting.class);
+                        try {
+                            i.putExtra("EVENT_ID", result.getJSONObject("EVENT").getString("EVENT_ID"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         startActivity(i);
+                        finish();
 
                     }
 
@@ -106,10 +109,10 @@ public class CreateEventActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
-                    switchTV.setText("Private");
+                    switchTV.setText("PRIVATE");
 
                 } else {
-                    switchTV.setText("Check-in");
+                    switchTV.setText("CHECKIN");
                 }
             }
         });
@@ -301,7 +304,8 @@ public class CreateEventActivity extends AppCompatActivity {
                 }
 
                 eventDetails.put("PARTICIPANTS", friends);
-                eventDetails.put("LOCATION", locationCustomEditText.getText());
+
+                eventDetails.put("LOCATION", locationCustomEditText.getObjects().get(0));
 
                 json.put("EVENT_DETAILS", eventDetails);
             } catch (JSONException e) {

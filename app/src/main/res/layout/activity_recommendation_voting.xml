@@ -5,26 +5,50 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEE">
+    android:padding="20dp">
+
+    <LinearLayout
+        android:id="@+id/topLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="RESTURANT"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="VOTE COUNT"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
-
-    <Button
-        android:text="Submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="32dp"
-        android:id="@+id/submitRecommendation" />
+        android:layout_below="@+id/topLayout" />
 
     <TextView
         android:text="Didnt find your favourite one?"
@@ -46,5 +70,19 @@
         android:layout_toEndOf="@+id/didntfind"
         android:id="@+id/restaurant_name" />
 
+    <Button
+        android:id="@+id/submitRecommendation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded_rectangle_blue"
+        android:text="Submit"
+        android:textColor="@android:color/white" />
+
 </RelativeLayout>
+
+    </ScrollView>
 </android.support.v4.widget.SwipeRefreshLayout>

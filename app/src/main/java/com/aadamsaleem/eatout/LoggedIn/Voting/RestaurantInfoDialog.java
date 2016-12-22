@@ -1,26 +1,23 @@
-package com.aadamsaleem.eatout.LoggedIn.Home;
+package com.aadamsaleem.eatout.LoggedIn.Voting;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.EventManager;
 import com.aadamsaleem.eatout.util.PrefUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * Created by kirank on 12/22/16.
@@ -31,10 +28,10 @@ public class RestaurantInfoDialog extends Dialog {
 
     private static final String DOLLAR = "$";
     public Activity activity;
-    private  TextView restaurantName;
-    private  ImageView image;
-    private  TextView priceTV;
-    private  TextView ratingTV;
+    private TextView restaurantName;
+    private ImageView image;
+    private TextView priceTV;
+    private TextView ratingTV;
     private TextView ratingCountTV;
     private TextView line1;
     private TextView line2;
@@ -52,24 +49,28 @@ public class RestaurantInfoDialog extends Dialog {
         EventManager.getRestaurantDetails(activity, prepareInfoRequestJson(), new CompletionInterface() {
             @Override
             public void onSuccess(JSONObject result) {
-                Log.d("***********", "restaurant details" + result.toString());
                 try {
                     JSONObject profile = result.getJSONObject("PROFILE");
                     restaurantName.setText("" + profile.getString("RESTAURANT_NAME"));
-                    ratingTV.setText("" +profile.getDouble("RESTAURANT_RATING"));
-//                    URL newurl = new URL(profile.getString("RESTAURANT_PHOTO"));
-//                    Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection() .getInputStream());
-//                    image.setImageBitmap(mIcon_val);
+                    ratingTV.setText("" + profile.getDouble("RESTAURANT_RATING"));
+
+
+                    ImageLoader imageLoader = ImageLoader.getInstance();
+
+                    imageLoader.init(ImageLoaderConfiguration.createDefault(getContext()));
+
+                    imageLoader.displayImage(profile.getString("RESTAURANT_PHOTO"), image);
+
                     double price = profile.getDouble("RESTAURANT_PRICE");
-                    if(profile.has("RESTAURANT_PHONE")) {
+                    if (profile.has("RESTAURANT_PHONE")) {
                         contact.setText(profile.getString("RESTAURANT_PHONE"));
                         contact.setVisibility(View.VISIBLE);
                         phoneNumber.setVisibility(View.VISIBLE);
                     }
                     String priceString = "";
-                    while(price > 0) {
+                    while (price > 0) {
                         priceString += DOLLAR;
-                        price --;
+                        price--;
                     }
                     priceTV.setText("" + priceString);
                     String address = profile.getString("RESTAURANT_ADDRESS");
@@ -81,8 +82,8 @@ public class RestaurantInfoDialog extends Dialog {
                     e.printStackTrace();
                 }
 
-//                {"PROFILE":{"RESTAURANT_RATING":4.5,"RESTAURANT_HOURS":[{"start":"1130","is_overnight":false,"end":"0000","day":0},{"start":"1130","is_overnight":false,"end":"0000","day":1},{"start":"1130","is_overnight":false,"end":"0000","day":2},{"start":"1130","is_overnight":false,"end":"0000","day":3},{"start":"1130","is_overnight":true,"end":"0200","day":4},{"start":"1130","is_overnight":true,"end":"0200","day":5},{"start":"1130","is_overnight":false,"end":"0000","day":6}],"RESTAURANT_ADDRESS":"95 Macdougal St, New York, NY 10012","RESTAURANT_PRICE":2,"RESTAURANT_ID":"mirch-masala-new-york","RESTAURANT_CUISINES":["Indian","Halal","Vegetarian"],"RESTAURANT_PHONE":"+12127772888","RESTAURANT_PHOTO":"https:\/\/s3-media4.fl.yelpcdn.com\/bphoto\/-pWV2wwNsHYpfWkeWnXw9Q\/o.jpg","RESTAURANT_LOCATION":[40.7293640992544,-74.0010555819702],"ITEMS_REVIEW":[],"RESTAURANT_NAME":"Mirch Masala","RESTAURANT_REVIEWCOUNT":188},"STATUS":501}
             }
+
             @Override
             public void onFailure() {
                 Log.d("***********", "restaurant details failure");
@@ -120,7 +121,7 @@ public class RestaurantInfoDialog extends Dialog {
 
     public void setAddress(String Address) {
 
-        if(Address == null) {
+        if (Address == null) {
             line1.setText("not available");
             line2.setText("not available");
         }

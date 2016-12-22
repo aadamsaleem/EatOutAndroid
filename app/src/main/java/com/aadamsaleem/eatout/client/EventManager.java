@@ -65,7 +65,6 @@ public class EventManager {
         });
     }
 
-
     public static void getRestaurantDetails(Context context, JSONObject json, final CompletionInterface completionInterface) {
 
         String url = Constants.BASE_URL+ Constants.GET_RESTAURANT_DETAILS;
@@ -137,6 +136,7 @@ public class EventManager {
         });
 
     }
+
     public static void getRecommendationList(Context context, JSONObject json, final CompletionInterface completionInterface) {
         String url = Constants.BASE_URL+ Constants.GET_RECOMMENDATION_LIST;
 
@@ -171,7 +171,6 @@ public class EventManager {
         });
 
     }
-
 
     public static void createEvent(Context context, JSONObject json, final CompletionInterface completionInterface){
 
@@ -293,6 +292,42 @@ public class EventManager {
         });
 
 
+
+    }
+
+
+    public static void signalEndOfEvent(Context context, JSONObject json, final CompletionInterface completionInterface) {
+        String url = Constants.BASE_URL+ Constants.SIGNAL_EVENT_END;
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        StringEntity se = null;
+        try {
+            se = new StringEntity(json.toString());
+        } catch (UnsupportedEncodingException e) {
+            // handle exceptions properly!
+        }
+        se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+        client.post(context, url, se, "application/json", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                    JSONObject resultJSON = null;
+                    try {
+                        resultJSON = new JSONObject(new String(responseBody));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    completionInterface.onSuccess(resultJSON);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                completionInterface.onFailure();
+            }
+        });
 
     }
 

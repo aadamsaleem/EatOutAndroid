@@ -35,4 +35,8 @@ public class Constants {
 
     public static final String URL_GET_EVENT_DETAIL = "event/getevent";
 
+    public static final String SIGNAL_EVENT_END = "event/end_event";
+
+
+
 }

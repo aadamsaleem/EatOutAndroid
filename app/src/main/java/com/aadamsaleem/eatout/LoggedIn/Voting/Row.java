@@ -1,4 +1,4 @@
-package com.aadamsaleem.eatout.LoggedIn.Home;
+package com.aadamsaleem.eatout.LoggedIn.Voting;
 
 /**
  * Created by kirank on 12/22/16.

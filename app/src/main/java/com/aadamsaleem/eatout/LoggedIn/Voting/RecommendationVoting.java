@@ -1,4 +1,4 @@
-package com.aadamsaleem.eatout.LoggedIn.Home;
+package com.aadamsaleem.eatout.LoggedIn.Voting;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -70,7 +70,8 @@ public class RecommendationVoting extends Activity {
                 EventManager.updateVoteCount(getApplicationContext(), prepareUpgradeJson(), new CompletionInterface() {
                     @Override
                     public void onSuccess(JSONObject result) {
-                        Log.d("@@@@@", "update vote List" + result.toString());
+                        Toast.makeText(getApplicationContext(), "Submitted!", Toast.LENGTH_LONG).show();
+                        finish();
                     }
                     @Override
                     public void onFailure() {
@@ -119,9 +120,7 @@ public class RecommendationVoting extends Activity {
         EventManager.getRecommendationList(getApplicationContext(), prepareListRequestJson(), new CompletionInterface() {
             @Override
             public void onSuccess(JSONObject result) {
-                Log.d("***********", "recommendation List" + result.toString());
                 try {
-//                    {"STATUS":601,"RECOMMENDATIONS":[{"RESTAURANT_NAME":"Kathy's Dumplings","RESTAURANT_ID":"kathys-dumplings-brooklyn","VOTE_COUNT":0},{"RESTAURANT_NAME":"Longbow Pub & Pantry","RESTAURANT_ID":"longbow-pub-and-pantry-brooklyn","VOTE_COUNT":0},{"RESTAURANT_NAME":"Tanoreen","RESTAURANT_ID":"tanoreen-brooklyn-2","VOTE_COUNT":0},{"RESTAURANT_NAME":"Brooklyn Beet Company","RESTAURANT_ID":"brooklyn-beet-company-brooklyn","VOTE_COUNT":0},{"RESTAURANT_NAME":"Mussels & More","RESTAURANT_ID":"mussels-and-more-brooklyn","VOTE_COUNT":0},{"RESTAURANT_NAME":"MyThai Cafe","RESTAURANT_ID":"mythai-cafe-brooklyn","VOTE_COUNT":0},{"RESTAURANT_NAME":"Top Thai","RESTAURANT_ID":"top-thai-brooklyn","VOTE_COUNT":0},{"RESTAURANT_NAME":"New York Koshary","RESTAURANT_ID":"new-york-koshary-brooklyn-3","VOTE_COUNT":0},{"RESTAURANT_NAME":"Schnitzel Haus","RESTAURANT_ID":"schnitzel-haus-brooklyn","VOTE_COUNT":0},{"RESTAURANT_NAME":"Somethingreek","RESTAURANT_ID":"somethingreek-brooklyn","VOTE_COUNT":0}]}
                     JSONArray recommendationArray = result.getJSONArray("RECOMMENDATIONS");
 
                     for (int i = 0; i < recommendationArray.length(); i++) {
