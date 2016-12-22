@@ -65,8 +65,6 @@ public class EventManager {
         });
     }
 
-<<<<<<< HEAD
-
     public static void getRestaurantDetails(Context context, JSONObject json, final CompletionInterface completionInterface) {
 
         String url = Constants.BASE_URL+ Constants.GET_RESTAURANT_DETAILS;
@@ -174,8 +172,6 @@ public class EventManager {
     }
 
 
-=======
->>>>>>> 809aa6d1e0657d398df0800024a4ec44b4a931c9
     public static void createEvent(Context context, JSONObject json, final CompletionInterface completionInterface){
 
         String url = Constants.BASE_URL+ Constants.URL_EVENT_CREATE;
