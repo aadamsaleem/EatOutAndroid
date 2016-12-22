@@ -10,7 +10,7 @@ public class Event {
     private String date;
     private String time;
     private String venue;
-    private User[] participants;
+    private Friend[] participants;
 
     public int getEventID() {
         return eventID;
@@ -52,11 +52,11 @@ public class Event {
         this.venue = venue;
     }
 
-    public User[] getParticipants() {
+    public Friend[] getParticipants() {
         return participants;
     }
 
-    public void setParticipants(User[] participants) {
+    public void setParticipants(Friend[] participants) {
         this.participants = participants;
     }
 }

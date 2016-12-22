@@ -25,4 +25,8 @@ public class Constants {
 
     public static final String URL_EVENT_CREATE = "event/create" ;
 
+    public static final String URL_GET_ALL_EVENT = "event/getall";
+
+    public static final String URL_GET_EVENT_DETAIL = "event/getevent";
+
 }

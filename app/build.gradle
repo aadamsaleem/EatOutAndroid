@@ -42,5 +42,7 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.zhy:flowlayout-lib:1.0.3'
     compile "com.splitwise:tokenautocomplete:2.0.8@aar"
+    compile 'com.google.firebase:firebase-core:10.0.1'
     testCompile 'junit:junit:4.12'
 }
+apply plugin: 'com.google.gms.google-services'
