@@ -2,6 +2,7 @@ package com.aadamsaleem.eatout.LoggedIn.Voting;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.aadamsaleem.eatout.LoggedIn.Home.MainActivity;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.EventManager;
@@ -59,7 +61,10 @@ public class RecommendationVoting extends Activity {
                     @Override
                     public void onSuccess(JSONObject result) {
                         Toast.makeText(getApplicationContext(), "Submitted!", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(RecommendationVoting.this, MainActivity.class);
+                        startActivity(i);
                         finish();
+
                     }
                     @Override
                     public void onFailure() {
