@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.aadamsaleem.eatout.CustomViews.CustomListView.CustomListViewAdapter;
+import com.aadamsaleem.eatout.CustomViews.CustomListView.EventListViewAdapter;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.EventManager;
@@ -43,7 +43,7 @@ public class FriendsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
 
-        final ListView yourListView = (ListView) rootView.findViewById(R.id.listView);
+        final ListView eventListView = (ListView) rootView.findViewById(R.id.listView);
 
         final ArrayList<Event> items = new ArrayList<>();
 
@@ -53,17 +53,15 @@ public class FriendsFragment extends Fragment {
             public void onSuccess(JSONObject result) {
                 try {
 
-                    Log.e("aaaa","aaaa");
                     JSONArray personalEvents = result.getJSONArray("PERSONAL_EVENTS");
                     for (int i = 0; i < personalEvents.length(); i++) {
                         JSONObject json = personalEvents.getJSONObject(i);
                         Event event = new Event();
                         event.setEventID(json.getString("EVENT_ID"));
-                        event.setName("NAME");
-                        //event.setName(json.getString("EVENT_NAME"));
-                        event.setDate("DATE");
-                        //event.setDate(json.getString("EVENT_DATE"));
-                        event.setParticipants(json.getString("EVENT_PARTICIPANTS"));
+                        event.setName(json.getString("EVENT_NAME"));
+                        event.setDate(json.getString("EVENT_DATETIME"));
+                        event.setLocation(json.getString("EVENT_LOCATION_TEXT"));
+                        event.setParticipants(json.getString("EVENT_PARTICIPANT_NAMES"));
                         items.add(event);
                     }
 
@@ -72,13 +70,12 @@ public class FriendsFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                CustomListViewAdapter listadapter = new CustomListViewAdapter(getActivity(), android.R.layout.simple_list_item_1, items);
-                yourListView.setAdapter(listadapter);
+                EventListViewAdapter listadapter = new EventListViewAdapter(getActivity(), android.R.layout.simple_list_item_1, items);
+                eventListView.setAdapter(listadapter);
             }
 
             @Override
             public void onFailure() {
-                Log.e("aaaa","bbbb");
 
             }
         });

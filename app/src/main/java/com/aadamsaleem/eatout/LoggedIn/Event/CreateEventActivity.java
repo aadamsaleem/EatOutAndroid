@@ -304,7 +304,8 @@ public class CreateEventActivity extends AppCompatActivity {
                 }
 
                 eventDetails.put("PARTICIPANTS", friends);
-                eventDetails.put("LOCATION", locationCustomEditText.getText());
+
+                eventDetails.put("LOCATION", locationCustomEditText.getObjects().get(0));
 
                 json.put("EVENT_DETAILS", eventDetails);
             } catch (JSONException e) {

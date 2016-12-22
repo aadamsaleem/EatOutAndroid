@@ -14,6 +14,7 @@ import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.EventManager;
 import com.aadamsaleem.eatout.util.PrefUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,7 +54,11 @@ public class RestaurantInfoDialog extends Dialog {
                     restaurantName.setText("" + profile.getString("RESTAURANT_NAME"));
                     ratingTV.setText("" + profile.getDouble("RESTAURANT_RATING"));
 
+
                     ImageLoader imageLoader = ImageLoader.getInstance();
+
+                    imageLoader.init(ImageLoaderConfiguration.createDefault(getContext()));
+
                     imageLoader.displayImage(profile.getString("RESTAURANT_PHOTO"), image);
 
                     double price = profile.getDouble("RESTAURANT_PRICE");

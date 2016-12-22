@@ -8,7 +8,7 @@ public class Event {
     private String eventID;
     private String name;
     private String dateTime;
-    private String venue;
+    private String location;
     private String participants;
 
     public String getEventID() {
@@ -35,12 +35,12 @@ public class Event {
         this.dateTime = dateTime;
     }
 
-    public String getVenue() {
-        return venue;
+    public String getLocation() {
+        return location;
     }
 
-    public void setVenue(String venue) {
-        this.venue = venue;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getParticipants() {

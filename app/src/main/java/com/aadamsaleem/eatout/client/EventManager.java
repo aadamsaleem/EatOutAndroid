@@ -136,6 +136,7 @@ public class EventManager {
         });
 
     }
+
     public static void getRecommendationList(Context context, JSONObject json, final CompletionInterface completionInterface) {
         String url = Constants.BASE_URL+ Constants.GET_RECOMMENDATION_LIST;
 
@@ -170,7 +171,6 @@ public class EventManager {
         });
 
     }
-
 
     public static void createEvent(Context context, JSONObject json, final CompletionInterface completionInterface){
 

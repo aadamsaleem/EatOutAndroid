@@ -18,15 +18,15 @@ import java.util.ArrayList;
  * Created by aadam on 17/11/2016.
  */
 
-public class CustomListViewAdapter extends ArrayAdapter<Event> {
+public class EventListViewAdapter extends ArrayAdapter<Event> {
 
     private ArrayList<Event> eventList;
 
-    public CustomListViewAdapter(Context context, int resource) {
+    public EventListViewAdapter(Context context, int resource) {
         super(context, resource);
     }
 
-    public CustomListViewAdapter(Context context, int resource, ArrayList<Event> eventList) {
+    public EventListViewAdapter(Context context, int resource, ArrayList<Event> eventList) {
         super(context, resource, eventList);
         this.eventList = eventList;
     }
@@ -50,12 +50,14 @@ public class CustomListViewAdapter extends ArrayAdapter<Event> {
         if (p != null) {
 
             TextView name = (TextView) v.findViewById(R.id.name);
-            TextView venue = (TextView) v.findViewById(R.id.participants);
+            TextView participants = (TextView) v.findViewById(R.id.participants);
             TextView date = (TextView) v.findViewById(R.id.date);
+            TextView location = (TextView) v.findViewById(R.id.location);
 
             name.setText(p.getName());
-            venue.setText(p.getParticipants());
+            participants.setText(p.getParticipants());
             date.setText(p.getDateTime());
+            location.setText(p.getLocation());
 
         }
 
