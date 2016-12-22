@@ -1,13 +1,17 @@
 package com.aadamsaleem.eatout.LoggedIn.Home;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aadamsaleem.eatout.R;
@@ -28,6 +32,10 @@ public class RecommendationVoting extends Activity {
     private Button submitRecommendation;
     private String eventIDString;
     private Context mContext;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView didntFind;
+    private EditText enterName;
+
 
 
     @Override
@@ -41,6 +49,8 @@ public class RecommendationVoting extends Activity {
 
         setContentView(R.layout.activity_recommendation_voting);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        didntFind = (TextView) findViewById(R.id.didntfind);
+        enterName = (EditText) findViewById(R.id.restaurant_name);
 
         getListData();
         LinearLayoutManager manager = new LinearLayoutManager(RecommendationVoting.this);
@@ -48,6 +58,8 @@ public class RecommendationVoting extends Activity {
         mRecyclerView.setLayoutManager(manager);
 
         submitRecommendation = (Button)findViewById(R.id.submitRecommendation);
+        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
+
         setUpListeners();
     }
     private void setUpListeners() {
@@ -67,8 +79,23 @@ public class RecommendationVoting extends Activity {
                 });
             }
         });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshItems();
+            }
+        });
+    }
+    void refreshItems() {
+       getListData();
     }
 
+    void onItemsLoadComplete(List<Row> recoList) {
+        mAdapter = new RecyclerViewAdapter(recoList, mContext, RecommendationVoting.this);
+        mRecyclerView.setAdapter(mAdapter);
+        swipeRefreshLayout.setRefreshing(false);
+    }
 
     private List<Row> selectRows (List<Row> allRows) {
         List<Row> result = new ArrayList<>();
@@ -82,6 +109,13 @@ public class RecommendationVoting extends Activity {
     private void getListData() {
         final List<Row> recoList = new ArrayList<>();
         Log.d("***********", "getListData called()");
+        enterName.setVisibility(View.GONE);
+        didntFind.setVisibility(View.GONE);
+        final ProgressDialog pd = new ProgressDialog(RecommendationVoting.this,R.style.MyTheme);
+        pd.setCancelable(false);
+        pd.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
+        pd.show();
+
         EventManager.getRecommendationList(getApplicationContext(), prepareListRequestJson(), new CompletionInterface() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -98,9 +132,10 @@ public class RecommendationVoting extends Activity {
                     e.printStackTrace();
                 }
 
-
-                mAdapter = new RecyclerViewAdapter(recoList, mContext, RecommendationVoting.this);
-                mRecyclerView.setAdapter(mAdapter);
+                pd.hide();
+                enterName.setVisibility(View.VISIBLE);
+                didntFind.setVisibility(View.VISIBLE);
+                onItemsLoadComplete(recoList);
             }
             @Override
             public void onFailure() {

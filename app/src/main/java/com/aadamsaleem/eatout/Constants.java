@@ -25,16 +25,14 @@ public class Constants {
 
     public static final String URL_EVENT_CREATE = "event/create" ;
 
-<<<<<<< HEAD
     public static final String GET_RECOMMENDATION_LIST = "event/get_recommendation_list";
 
     public static final String GET_RESTAURANT_DETAILS = "restaurant/get_restaurant_details";
 
     public static final String UPDATE_VOTE = "event/update_vote";
-=======
+
     public static final String URL_GET_ALL_EVENT = "event/getall";
 
     public static final String URL_GET_EVENT_DETAIL = "event/getevent";
->>>>>>> 809aa6d1e0657d398df0800024a4ec44b4a931c9
 
 }
