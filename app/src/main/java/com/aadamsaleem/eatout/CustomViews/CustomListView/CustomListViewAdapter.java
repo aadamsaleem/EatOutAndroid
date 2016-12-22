@@ -1,12 +1,14 @@
 package com.aadamsaleem.eatout.CustomViews.CustomListView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.aadamsaleem.eatout.LoggedIn.Event.EventDetailActivity;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.models.Event;
 
@@ -43,20 +45,30 @@ public class CustomListViewAdapter extends ArrayAdapter<Event> {
 
         }
 
-        Event p = eventList.get(position);
+        final Event p = eventList.get(position);
 
         if (p != null) {
 
             TextView name = (TextView) v.findViewById(R.id.name);
-            TextView venue = (TextView) v.findViewById(R.id.venue);
+            TextView venue = (TextView) v.findViewById(R.id.participants);
             TextView date = (TextView) v.findViewById(R.id.date);
-            TextView time = (TextView) v.findViewById(R.id.time);
 
             name.setText(p.getName());
-            venue.setText(p.getVenue());
-            date.setText(p.getDate());
-            time.setText(p.getTime());
+            venue.setText(p.getParticipants());
+            date.setText(p.getDateTime());
+
         }
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getContext(), EventDetailActivity.class);
+                i.putExtra("EVENT_ID", p.getEventID());
+                getContext().startActivity(i);
+
+            }
+        });
         return v;
     }
 }

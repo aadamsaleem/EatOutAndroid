@@ -1,21 +1,19 @@
-package com.aadamsaleem.eatout;
+package com.aadamsaleem.eatout.LoggedIn.Event;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.aadamsaleem.eatout.LoggedIn.Voting.RecommendationVoting;
+import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.EventManager;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class EventDetailActivity extends AppCompatActivity {
 
@@ -50,6 +48,16 @@ public class EventDetailActivity extends AppCompatActivity {
 
     public void setViews(){
 
+
+        vote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(EventDetailActivity.this, RecommendationVoting.class);
+                i.putExtra("EVENT_ID", eventID);
+                startActivity(i);
+                finish();
+            }
+        });
 
         JSONObject json = new JSONObject();
         try {

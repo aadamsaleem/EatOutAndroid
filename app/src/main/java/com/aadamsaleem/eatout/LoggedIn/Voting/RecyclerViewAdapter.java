@@ -1,7 +1,6 @@
-package com.aadamsaleem.eatout.LoggedIn.Home;
+package com.aadamsaleem.eatout.LoggedIn.Voting;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -47,9 +46,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         final Activity activityFinal = activity;
         final Row singleRow = rowList.get(position);
         holder.restaurantName.setText(singleRow.getName());
-        holder.restaurantVoteCount.setText("vote count: " + singleRow.getVoteCount());
+        holder.restaurantVoteCount.setText(singleRow.getVoteCount());
 
         holder.view.setBackgroundColor(singleRow.isSelected() ? Color.CYAN : Color.WHITE);
+
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

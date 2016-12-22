@@ -44,5 +44,7 @@ dependencies {
     compile "com.splitwise:tokenautocomplete:2.0.8@aar"
     compile 'com.google.firebase:firebase-core:10.0.1'
     testCompile 'junit:junit:4.12'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
 }
 apply plugin: 'com.google.gms.google-services'

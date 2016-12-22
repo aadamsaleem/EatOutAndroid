@@ -10,10 +10,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
-import com.aadamsaleem.eatout.LoggedIn.CreateEvent.CreateEventActivity;
+import com.aadamsaleem.eatout.LoggedIn.Event.CreateEventActivity;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.UserManager;
@@ -23,7 +22,6 @@ import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Log.e("firebasetoken",FirebaseInstanceId.getInstance().getToken());
 
         user = PrefUtils.getCurrentUser(getApplicationContext());
 
@@ -71,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
     //region Private Methods
     private void getFacebookFriendList(String fbUserID) {
+
+
         new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
                 "/" + fbUserID + "/friends",
@@ -85,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                             UserManager.updateFBFriendList(friendArray,getApplicationContext(), new CompletionInterface() {
                                 @Override
                                 public void onSuccess(JSONObject result) {
-                                    Log.e("result",result.toString());
                                 }
 
                                 @Override

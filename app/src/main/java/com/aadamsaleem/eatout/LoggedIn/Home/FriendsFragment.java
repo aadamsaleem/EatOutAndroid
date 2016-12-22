@@ -7,6 +7,7 @@ package com.aadamsaleem.eatout.LoggedIn.Home;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +15,20 @@ import android.widget.ListView;
 
 import com.aadamsaleem.eatout.CustomViews.CustomListView.CustomListViewAdapter;
 import com.aadamsaleem.eatout.R;
+import com.aadamsaleem.eatout.client.CompletionInterface;
+import com.aadamsaleem.eatout.client.EventManager;
 import com.aadamsaleem.eatout.models.Event;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class FriendsFragment extends Fragment {
 
     Context mContext;
+
     public FriendsFragment() {
     }
 
@@ -35,31 +43,47 @@ public class FriendsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
 
-        ListView yourListView = (ListView)rootView.findViewById(R.id.listView);
+        final ListView yourListView = (ListView) rootView.findViewById(R.id.listView);
+
+        final ArrayList<Event> items = new ArrayList<>();
 
 
-        ArrayList<Event> items = new ArrayList<>();
+        EventManager.getPublicEvents(getContext(), new CompletionInterface() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
 
-        Event ev1 = new Event();
-        Event ev2 = new Event();
+                    Log.e("aaaa","aaaa");
+                    JSONArray personalEvents = result.getJSONArray("PERSONAL_EVENTS");
+                    for (int i = 0; i < personalEvents.length(); i++) {
+                        JSONObject json = personalEvents.getJSONObject(i);
+                        Event event = new Event();
+                        event.setEventID(json.getString("EVENT_ID"));
+                        event.setName("NAME");
+                        //event.setName(json.getString("EVENT_NAME"));
+                        event.setDate("DATE");
+                        //event.setDate(json.getString("EVENT_DATE"));
+                        event.setParticipants(json.getString("EVENT_PARTICIPANTS"));
+                        items.add(event);
+                    }
 
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-        ev1.setName("Dinner");
-        ev1.setVenue("Taj Mahal");
-        ev1.setDate("19/11/2016");
-        ev1.setTime("8:00PM");
+                CustomListViewAdapter listadapter = new CustomListViewAdapter(getActivity(), android.R.layout.simple_list_item_1, items);
+                yourListView.setAdapter(listadapter);
+            }
 
-        ev2.setName("Breakfast");
-        ev2.setVenue("Shake Shack");
-        ev2.setDate("18/11/2016");
-        ev2.setTime("8:00AM");
+            @Override
+            public void onFailure() {
+                Log.e("aaaa","bbbb");
 
-        items.add(ev1);
-        items.add(ev2);
+            }
+        });
 
-        CustomListViewAdapter listadapter = new CustomListViewAdapter(getActivity(), android.R.layout.simple_list_item_1, items);
-        yourListView.setAdapter( listadapter);
+
         return rootView;
     }
 }

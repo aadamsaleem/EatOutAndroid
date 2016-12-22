@@ -9,6 +9,7 @@ import com.aadamsaleem.eatout.Constants;
 import com.aadamsaleem.eatout.models.User;
 import com.aadamsaleem.eatout.util.PrefUtils;
 import com.facebook.login.LoginManager;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -39,6 +40,7 @@ public class UserManager {
             json.put("USER_NAME", user.getName());
             json.put("EMAIL_ID", user.getEmail());
             json.put("GENDER", user.getGender());
+            json.put("FIREBASE_ID", FirebaseInstanceId.getInstance().getToken());
 
         } catch (Exception e) {
             e.printStackTrace();

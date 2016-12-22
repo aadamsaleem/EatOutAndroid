@@ -18,9 +18,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aadamsaleem.eatout.LoggedIn.Preferences.PreferencesActivity;
+import com.aadamsaleem.eatout.LoggedIn.Voting.RecommendationVoting;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.LoggedOut.SplashScreen;
 import com.aadamsaleem.eatout.client.UserManager;
@@ -43,7 +43,6 @@ public class ProfileFragment extends Fragment {
     User user;
     LoginButton loginButton;
     LinearLayout preferencesLayout;
-    Button recommendationButton;
 
     public ProfileFragment() {
     }
@@ -78,7 +77,6 @@ public class ProfileFragment extends Fragment {
         emailTextView = (TextView)rootView.findViewById(R.id.email);
         loginButton = (LoginButton) rootView.findViewById(R.id.login_button);
         preferencesLayout  = (LinearLayout) rootView.findViewById(R.id.preferences_Layout);
-        recommendationButton = (Button) rootView.findViewById(R.id.recommendationButton);
 
     }
 
@@ -105,15 +103,6 @@ public class ProfileFragment extends Fragment {
                 Intent i = new Intent(mContext, PreferencesActivity.class);
                 startActivity(i);
 
-            }
-        });
-
-        recommendationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent gotoVotingPage = new Intent(mContext, RecommendationVoting.class);
-                gotoVotingPage.putExtra("EVENT_ID", "EI_97d0d8ba-a919-45e6-84d4-d07a3c991f3c");
-                startActivity(gotoVotingPage);
             }
         });
 
