@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "734019651127",
+    "firebase_url": "https://eatout-149800.firebaseio.com",
+    "project_id": "eatout-149800",
+    "storage_bucket": "eatout-149800.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734019651127:android:22bca032b9e51120",
+        "android_client_info": {
+          "package_name": "com.aadamsaleem.eatout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734019651127-up3hsn1dp1tkabfru717behi4vvjivto.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aadamsaleem.eatout",
+            "certificate_hash": "F77C0155AE66959186B6EE870B912440D6E039DD"
+          }
+        },
+        {
+          "client_id": "734019651127-la01pqjnmkfa0rhlosifcg3d6250ft68.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrUnovs5zDoKcFINbO5W-LHaprPWC2-oU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734019651127-la01pqjnmkfa0rhlosifcg3d6250ft68.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

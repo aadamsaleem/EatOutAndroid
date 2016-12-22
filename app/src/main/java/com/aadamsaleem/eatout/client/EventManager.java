@@ -3,6 +3,7 @@ package com.aadamsaleem.eatout.client;
 import android.content.Context;
 
 import com.aadamsaleem.eatout.Constants;
+import com.aadamsaleem.eatout.models.Event;
 import com.aadamsaleem.eatout.util.PrefUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -64,6 +65,7 @@ public class EventManager {
         });
     }
 
+<<<<<<< HEAD
 
     public static void getRestaurantDetails(Context context, JSONObject json, final CompletionInterface completionInterface) {
 
@@ -172,6 +174,8 @@ public class EventManager {
     }
 
 
+=======
+>>>>>>> 809aa6d1e0657d398df0800024a4ec44b4a931c9
     public static void createEvent(Context context, JSONObject json, final CompletionInterface completionInterface){
 
         String url = Constants.BASE_URL+ Constants.URL_EVENT_CREATE;
@@ -208,6 +212,92 @@ public class EventManager {
 
     }
 
+    public static void getPublicEvents(Context context, final CompletionInterface completionInterface) {
+
+        String url = Constants.BASE_URL + Constants.URL_GET_ALL_EVENT;
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("USER_TOKEN", PrefUtils.getCurrentUser(context).getToken());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        StringEntity se = null;
+        try {
+            se = new StringEntity(jsonObject.toString());
+        } catch (UnsupportedEncodingException e) {
+            // handle exceptions properly!
+        }
+        se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+        client.post(context, url, se, "application/json", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                    JSONObject resultJSON = null;
+                    try {
+                        resultJSON = new JSONObject(new String(responseBody));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    completionInterface.onSuccess(resultJSON);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                completionInterface.onFailure();
+            }
+        });
+
+
+    }
+
+    public static void getEventDetails(Context context, JSONObject jsonObject, final CompletionInterface completionInterface){
+        String url = Constants.BASE_URL + Constants.URL_GET_EVENT_DETAIL;
+
+        try {
+            jsonObject.put("USER_TOKEN", PrefUtils.getCurrentUser(context).getToken());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        StringEntity se = null;
+        try {
+            se = new StringEntity(jsonObject.toString());
+        } catch (UnsupportedEncodingException e) {
+            // handle exceptions properly!
+        }
+        se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+        client.post(context, url, se, "application/json", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                    JSONObject resultJSON = null;
+                    try {
+                        resultJSON = new JSONObject(new String(responseBody));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    completionInterface.onSuccess(resultJSON);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                completionInterface.onFailure();
+            }
+        });
+
+
+
+    }
 
 }
 
