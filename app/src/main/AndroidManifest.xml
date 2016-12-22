@@ -64,7 +64,8 @@
         </activity>
         <activity android:name=".LoggedIn.Preferences.PreferencesActivity" />
         <activity android:name=".LoggedIn.CreateEvent.CreateEventActivity" />
-        <activity android:name=".LoggedIn.ResturantPickerActivity"></activity>
+        <activity android:name=".LoggedIn.ResturantPickerActivity" />
+        <activity android:name=".LoggedIn.Home.RecommendationVoting"></activity>
     </application>
 
 </manifest>
