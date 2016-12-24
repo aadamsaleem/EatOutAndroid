@@ -1,4 +1,4 @@
-package com.aadamsaleem.eatout.LoggedIn.Event;
+package com.aadamsaleem.eatout.CustomViews.ReviewView;
 /**
  * Created by kirank on 12/22/16.
  */
@@ -41,14 +41,15 @@ public class ReviewRecyclerViewAdapter extends
 
         ReviewRecyclerViewHolder mainHolder = (ReviewRecyclerViewHolder) holder;// holder
 
-        Bitmap image = BitmapFactory.decodeResource(context.getResources(),
-                model.getImage());// This will convert drawbale image into
+
         // bitmap
 
         // setting title
         mainHolder.title.setText(model.getTitle());
+        mainHolder.review.setText(model.getReview());
+        mainHolder.ratings.setRating(model.getRating());
 
-        mainHolder.imageview.setImageBitmap(image);
+//        mainHolder.imageview.setImageBitmap(image);
 
     }
 
@@ -59,7 +60,7 @@ public class ReviewRecyclerViewAdapter extends
         LayoutInflater mInflater = LayoutInflater.from(viewGroup.getContext());
 
         ViewGroup mainGroup = (ViewGroup) mInflater.inflate(
-                R.layout.card, viewGroup, false);
+                R.layout.review_card, viewGroup, false);
         ReviewRecyclerViewHolder listHolder = new ReviewRecyclerViewHolder(mainGroup);
         return listHolder;
 

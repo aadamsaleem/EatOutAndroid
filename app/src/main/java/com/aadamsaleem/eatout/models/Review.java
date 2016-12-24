@@ -8,13 +8,17 @@ public class Review {
 
     // Getter and Setter model for recycler view items
     private String title;
-    private int image;
+    private String review;
+    private float rating;
+//    private int image;
 
-    public Review(String title,  int image) {
+    public Review(String title,  String review, float rating) {
 
         this.title = title;
 
-        this.image = image;
+        this.review = review;
+
+        this.rating = rating;
     }
 
     public String getTitle() {
@@ -23,7 +27,11 @@ public class Review {
 
 
 
-    public int getImage() {
-        return image;
+    public String getReview() {
+        return this.review;
+    }
+
+    public float getRating() {
+        return rating;
     }
 }

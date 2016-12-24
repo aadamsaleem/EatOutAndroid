@@ -12,13 +12,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aadamsaleem.eatout.LoggedIn.Home.MainActivity;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.EventManager;
+import com.aadamsaleem.eatout.models.Row;
 import com.aadamsaleem.eatout.util.PrefUtils;
 
 import org.json.JSONArray;
@@ -28,14 +28,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecommendationVoting extends Activity {
+public class RecommendationVotingActivity extends Activity {
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mAdapter;
     private Button submitRecommendation;
     private String eventIDString;
     private Context mContext;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private TextView didntFind;
     private EditText enterName;
 
 
@@ -51,11 +50,10 @@ public class RecommendationVoting extends Activity {
 
         setContentView(R.layout.activity_recommendation_voting);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        didntFind = (TextView) findViewById(R.id.didntfind);
         enterName = (EditText) findViewById(R.id.restaurant_name);
 
         getListData();
-        LinearLayoutManager manager = new LinearLayoutManager(RecommendationVoting.this);
+        LinearLayoutManager manager = new LinearLayoutManager(RecommendationVotingActivity.this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(manager);
 
@@ -69,11 +67,19 @@ public class RecommendationVoting extends Activity {
         submitRecommendation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                final ProgressDialog progressDialog = new ProgressDialog(RecommendationVotingActivity.this, R.style.MyTheme);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.setCancelable(false);
+                progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
+                progressDialog.show();
+
                 EventManager.updateVoteCount(getApplicationContext(), prepareUpgradeJson(), new CompletionInterface() {
                     @Override
                     public void onSuccess(JSONObject result) {
+
                         Toast.makeText(getApplicationContext(), "Submitted!", Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(RecommendationVoting.this, MainActivity.class);
+                        Intent i = new Intent(RecommendationVotingActivity.this, MainActivity.class);
                         startActivity(i);
                         finish();
 
@@ -98,7 +104,7 @@ public class RecommendationVoting extends Activity {
     }
 
     void onItemsLoadComplete(List<Row> recoList) {
-        mAdapter = new RecyclerViewAdapter(recoList, mContext, RecommendationVoting.this);
+        mAdapter = new RecyclerViewAdapter(recoList, mContext, RecommendationVotingActivity.this);
         mRecyclerView.setAdapter(mAdapter);
         swipeRefreshLayout.setRefreshing(false);
     }
@@ -116,8 +122,7 @@ public class RecommendationVoting extends Activity {
         final List<Row> recoList = new ArrayList<>();
         Log.d("***********", "getListData called()");
         enterName.setVisibility(View.GONE);
-        didntFind.setVisibility(View.GONE);
-        final ProgressDialog pd = new ProgressDialog(RecommendationVoting.this,R.style.MyTheme);
+        final ProgressDialog pd = new ProgressDialog(RecommendationVotingActivity.this,R.style.MyTheme);
         pd.setCancelable(false);
         pd.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
         pd.show();
@@ -138,7 +143,6 @@ public class RecommendationVoting extends Activity {
 
                 pd.hide();
                 enterName.setVisibility(View.VISIBLE);
-                didntFind.setVisibility(View.VISIBLE);
                 onItemsLoadComplete(recoList);
             }
             @Override

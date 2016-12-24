@@ -14,13 +14,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aadamsaleem.eatout.LoggedIn.Preferences.PreferencesActivity;
-import com.aadamsaleem.eatout.LoggedIn.Voting.RecommendationVoting;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.LoggedOut.SplashScreen;
 import com.aadamsaleem.eatout.client.UserManager;

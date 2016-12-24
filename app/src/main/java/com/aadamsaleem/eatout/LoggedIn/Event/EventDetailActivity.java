@@ -1,16 +1,18 @@
 package com.aadamsaleem.eatout.LoggedIn.Event;
 
-import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aadamsaleem.eatout.LoggedIn.Voting.RecommendationVoting;
+import com.aadamsaleem.eatout.CustomViews.ReviewView.ReviewEventActivity;
+import com.aadamsaleem.eatout.LoggedIn.Voting.RecommendationVotingActivity;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.EventManager;
@@ -25,6 +27,8 @@ public class EventDetailActivity extends AppCompatActivity {
     private TextView nameTV, dateTimeTV, eventTypeTV, participantsTV, preferencesTV, locationTV, restaurantTV;
     private Button vote,endEvent;
     private boolean isFinished;
+    private ScrollView topScrollView;
+    ProgressDialog progressDialog;
 
     String eventID = "";
     @Override
@@ -33,6 +37,12 @@ public class EventDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_detail);
 
         eventID = getIntent().getStringExtra("EVENT_ID");
+
+        progressDialog = new ProgressDialog(EventDetailActivity.this, R.style.MyTheme);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
+        progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
+        progressDialog.show();
 
         getViewIDs();
 
@@ -51,6 +61,8 @@ public class EventDetailActivity extends AppCompatActivity {
 
         vote = (Button) findViewById(R.id.vote_button);
         endEvent = (Button) findViewById(R.id.event_close_button);
+
+        topScrollView = (ScrollView) findViewById(R.id.scrollViewTop);
     }
 
     public void setViews(){
@@ -59,7 +71,7 @@ public class EventDetailActivity extends AppCompatActivity {
         vote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(EventDetailActivity.this, RecommendationVoting.class);
+                Intent i = new Intent(EventDetailActivity.this, RecommendationVotingActivity.class);
                 i.putExtra("EVENT_ID", eventID);
                 startActivity(i);
                 finish();
@@ -70,7 +82,7 @@ public class EventDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),"You are awesome!",Toast.LENGTH_SHORT).show();
-                Intent gotoReviewPage = new Intent(EventDetailActivity.this, ReviewEvent.class);
+                Intent gotoReviewPage = new Intent(EventDetailActivity.this, ReviewEventActivity.class);
                 gotoReviewPage.putExtra("navigateFrom","horizontal");
                 startActivity(gotoReviewPage);
 
@@ -131,6 +143,8 @@ public class EventDetailActivity extends AppCompatActivity {
                             }
                         });
                     }
+                    topScrollView.setVisibility(View.VISIBLE);
+                    progressDialog.dismiss();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -138,6 +152,7 @@ public class EventDetailActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure() {
+                progressDialog.dismiss();
 
             }
         });

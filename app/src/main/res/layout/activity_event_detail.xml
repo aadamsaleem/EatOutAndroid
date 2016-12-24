@@ -7,10 +7,12 @@
     tools:context="com.aadamsaleem.eatout.LoggedIn.Event.EventDetailActivity">
 
     <ScrollView
+        android:id="@+id/scrollViewTop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:visibility="invisible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,7 +43,6 @@
                 android:id="@+id/name_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NAME"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
                 android:textColor="@android:color/black"
@@ -62,7 +63,6 @@
                 android:id="@+id/date_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="DATE TIME"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
                 android:textColor="@android:color/black"
@@ -83,7 +83,6 @@
                 android:id="@+id/event_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="EVENT TYPE"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
                 android:textColor="@android:color/black"
@@ -105,7 +104,6 @@
                 android:id="@+id/participants_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="PARTICIPANTS"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
                 android:textColor="@android:color/black"
@@ -126,7 +124,6 @@
                 android:id="@+id/preferneces_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="EVENT PREFERENCES"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
                 android:textColor="@android:color/black"
@@ -148,7 +145,6 @@
                 android:id="@+id/location_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="LOCATION"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
                 android:textColor="@android:color/black"
@@ -169,13 +165,10 @@
                 android:id="@+id/resturant_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="LOCATION"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"/>
-
-
 
             <Button
                 android:id="@+id/vote_button"

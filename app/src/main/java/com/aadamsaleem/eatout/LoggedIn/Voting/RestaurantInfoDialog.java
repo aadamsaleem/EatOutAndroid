@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.EventManager;
+import com.aadamsaleem.eatout.models.Row;
 import com.aadamsaleem.eatout.util.PrefUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;

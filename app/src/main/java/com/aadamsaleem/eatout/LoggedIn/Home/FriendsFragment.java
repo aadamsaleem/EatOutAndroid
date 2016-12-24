@@ -53,6 +53,7 @@ public class FriendsFragment extends Fragment {
             public void onSuccess(JSONObject result) {
                 try {
 
+                    Log.e("aaaaahjebdkjwna",result.toString());
                     JSONArray personalEvents = result.getJSONArray("PERSONAL_EVENTS");
                     for (int i = 0; i < personalEvents.length(); i++) {
                         JSONObject json = personalEvents.getJSONObject(i);

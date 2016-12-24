@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="name of the dish"
+        android:ems="10"
+        android:id="@+id/nameET1"
+        android:layout_weight="1" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="please review"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:id="@+id/nameET2"
+        android:layout_weight="1" />
+
+    <RatingBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:text="Submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/submitReviewButton"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"/>
+</LinearLayout>

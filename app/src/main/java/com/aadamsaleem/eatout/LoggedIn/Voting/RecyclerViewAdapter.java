@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aadamsaleem.eatout.R;
+import com.aadamsaleem.eatout.models.Row;
 
 import java.util.List;
 

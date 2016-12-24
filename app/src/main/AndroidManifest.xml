@@ -70,7 +70,7 @@
         </activity>
         <activity android:name=".LoggedIn.Preferences.PreferencesActivity" />
         <activity android:name=".LoggedIn.Event.CreateEventActivity" />
-        <activity android:name=".LoggedIn.Voting.RecommendationVoting" />
+        <activity android:name=".LoggedIn.Voting.RecommendationVotingActivity" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -83,7 +83,7 @@
             android:name=".LoggedIn.Event.EventDetailActivity"
             android:label="@string/title_activity_event_detail"
             android:theme="@style/AppTheme" />
-        <activity android:name=".LoggedIn.Event.ReviewEvent"></activity>
+        <activity android:name=".CustomViews.ReviewView.ReviewEventActivity"></activity>
     </application>
 
 </manifest>

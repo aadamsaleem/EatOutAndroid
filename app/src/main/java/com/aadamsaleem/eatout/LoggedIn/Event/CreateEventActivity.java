@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.aadamsaleem.eatout.CustomViews.CustomEditText.CustomEditText;
 import com.aadamsaleem.eatout.CustomViews.CustomEditText.CustomFriendEditText;
-import com.aadamsaleem.eatout.LoggedIn.Voting.RecommendationVoting;
+import com.aadamsaleem.eatout.LoggedIn.Voting.RecommendationVotingActivity;
 import com.aadamsaleem.eatout.R;
 import com.aadamsaleem.eatout.client.CompletionInterface;
 import com.aadamsaleem.eatout.client.EventManager;
@@ -86,7 +86,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 EventManager.createEvent(getApplicationContext(), prepareEventJson(), new CompletionInterface() {
                     @Override
                     public void onSuccess(JSONObject result) {
-                        Intent i = new Intent(CreateEventActivity.this, RecommendationVoting.class);
+                        Intent i = new Intent(CreateEventActivity.this, RecommendationVotingActivity.class);
                         try {
                             i.putExtra("EVENT_ID", result.getJSONObject("EVENT").getString("EVENT_ID"));
                         } catch (JSONException e) {

@@ -1,4 +1,4 @@
-package com.aadamsaleem.eatout.LoggedIn.Voting;
+package com.aadamsaleem.eatout.models;
 
 /**
  * Created by kirank on 12/22/16.
